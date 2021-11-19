@@ -1,14 +1,26 @@
 import styled from 'styled-components';
 import imgAdress from '.././assets/image05.jpg';
+import { Link, useHistory } from "react-router-dom"
 
 export default function Home() {
+
+    const history = useHistory()
+
     return (
         <Conteiner>
             <h1>Bem vindo ao GratiBox</h1>
             <h2>Receba em casa um box com chás, produtos organicos, incensos e muito mais...</h2>
             <Center>
-                <button>Quero Começar</button>
-                <h3>Já sou logado</h3>
+                <button>
+                    <Link to={`/sign-up`} style={{textDecoration: 'none',  color: "#ffffff"}}>
+                        Quero Começar
+                    </Link>
+                </button>
+                <h3>
+                    <Link to={`/sign-in`} style={{textDecoration: 'none', color: "#ffffff"}}>
+                        Já sou logado
+                    </Link>
+                </h3>
             </Center>            
         </Conteiner>
     )
