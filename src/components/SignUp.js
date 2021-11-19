@@ -3,18 +3,18 @@ import styled from 'styled-components';
 export default function SignUp() {
  
     return (
-        <Conteiner>
+        <Container>
             <h1>Bem vindo ao GratiBox</h1>
             <input placeholder="Nome"></input>
             <input placeholder="Email"></input>
             <input placeholder="Senha"></input>
             <input placeholder="Confirmar senha"></input>
             <button>Cadastrar</button>
-        </Conteiner>
+        </Container>
     )
 }
 
-const Conteiner = styled.p`
+const Container = styled.p`
     color: #FFFFFF;
     font-family: Roboto;
     display: flex;

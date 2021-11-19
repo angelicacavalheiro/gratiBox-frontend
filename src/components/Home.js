@@ -7,7 +7,7 @@ export default function Home() {
     const history = useHistory()
 
     return (
-        <Conteiner>
+        <Container>
             <h1>Bem vindo ao GratiBox</h1>
             <h2>Receba em casa um box com chás, produtos organicos, incensos e muito mais...</h2>
             <Center>
@@ -22,11 +22,11 @@ export default function Home() {
                     </Link>
                 </h3>
             </Center>            
-        </Conteiner>
+        </Container>
     )
 }
 
-const Conteiner = styled.div`
+const Container = styled.div`
     font-family: Roboto;
     color: #FFFFFF;
     display: flex;
