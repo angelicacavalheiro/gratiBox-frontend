@@ -66,6 +66,7 @@ const Center = styled.div`
         line-height: 21px;
         color: #FFFFFF;
         margin: 420px auto 0 auto;
+        cursor: pointer;
     }
 
     h3{
@@ -77,7 +78,7 @@ const Center = styled.div`
         line-height: 21px;
         text-align: center;
         margin: 17px auto 10px auto;
-
+        cursor: pointer;
     }
 `;
 
