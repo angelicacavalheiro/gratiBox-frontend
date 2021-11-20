@@ -1,41 +1,41 @@
 import styled from 'styled-components';
 import imgAdress from '.././assets/image03.jpg'
+import { MdKeyboardArrowDown } from 'react-icons/md';
 
 export default function Details() {
     return (
         <Container>
             <h1>Bom te ver por aqui, @User.</h1>
             <h2>"Agradecer é arte de atrair coisas boas"</h2>
-            <ShowDetails>
+            <Options>
                 <img src={imgAdress} alt="pessoa meditando"/>
                 <PlanType>
                     <h3>Plano: </h3>
-                    <h4>@tipo_de_plano</h4>
+                    <MdKeyboardArrowDownStyled/>
                 </PlanType>
 
-                <SignatureDate>
-                    <h3>Data da assinatura: </h3>
-                    <h4> dd/mm/aa</h4>
-                </SignatureDate> 
+                <Delivery>
+                    <h3>Entrega </h3>
+                    <MdKeyboardArrowDownStyled/>
+                </Delivery> 
 
-                <NextDeliveries>
-                    <h3>Próximas entregas: </h3>
-                    <h4>dd/mm/aaaa</h4>
-                    <h4>dd/mm/aaaa</h4>
-                    <h4>dd/mm/aaaa</h4>
-                </NextDeliveries>
-
-               <PlanProducts>
-                    <h5>Chás</h5>
-                    <h5>Produtos Orgânicos</h5>
-                    <h5>Incensos</h5>
-               </PlanProducts>
-
-            </ShowDetails>
-            <button>Avaliar entregas</button>
+                <Products>
+                    <h3> Quero receber </h3>
+                    <h4> Chás </h4>
+                    <h4> Produtos orgânicos </h4>
+                    <h4> Incesos </h4>
+                </Products>
+            </Options>
+            <button>Próximo</button>
         </Container>
     )
 }
+
+const MdKeyboardArrowDownStyled = styled(MdKeyboardArrowDown)`
+    color: #4D65A8;
+    font-size: 35px;
+    height: 34px;
+`;
 
 const Container = styled.div`
     font-family: Roboto;
@@ -62,14 +62,14 @@ const Container = styled.div`
         margin: 0 auto;
     }
     button{     
-        width: 237px;
-        height: 56px;
+        width: 202px;
+        height: 39px;
         background: #8C97EA;
         border-color: #8C97EA;
         border-radius: 10px;
         margin: 31px auto 23px auto;
         font-weight: 500;
-        font-size: 24px;
+        font-size: 20px;
         line-height: 28px;
         color: #FFFFFF;
         font-family: Roboto;
@@ -77,9 +77,9 @@ const Container = styled.div`
     }
 `;
 
-const ShowDetails = styled.div`
+const Options = styled.div`
     width: 356px;
-    height: 382px;
+    height: 429px;
     background: pink;
     border-radius: 10px;
     display: flex;
@@ -100,22 +100,27 @@ const ShowDetails = styled.div`
 `;
 const PlanType = styled.div`  
     display: flex;
-    margin-bottom: 10px;
-    justify-content: space-around;
-    width: 270px;
+    justify-content: space-between;
+    padding: 10px 10px 0 10px;
+    width: 290px;
+    height: 44px;
+    border-radius: 5px;
+    background-color: #E0D1ED;
+    margin-bottom: 7px;
     h3{
         color: #4D65A8;
-    }
-    h4{
-        color: #E63C80;
-    }   
+    }  
 `;
 
-const SignatureDate = styled.div`  
+const Delivery = styled.div`  
     display: flex; 
-    margin-bottom: 10px;
-    width: 270px;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 10px 10px 0 10px;
+    width: 290px;
+    height: 44px;
+    border-radius: 5px;
+    background-color: #E0D1ED;
+    margin-bottom: 7px;
     h3{
         color: #4D65A8;        
     }
@@ -124,9 +129,15 @@ const SignatureDate = styled.div`
     }   
 `;
 
-const NextDeliveries = styled.div`  
-    display: flex;
-    flex-direction: column;
+const Products = styled.div`  
+    display: flex; 
+    justify-content: space-between;
+    padding: 10px 10px 0 10px;
+    width: 290px;
+    height: 111px;
+    border-radius: 5px;
+    background-color: #E0D1ED;
+    margin-bottom: 7px;
     h3{
         color: #4D65A8;        
     }
@@ -141,6 +152,7 @@ const NextDeliveries = styled.div`
 const PlanProducts = styled.div`  
     display: flex; 
     justify-content: space-between;
+    padding: 10px 10px 0 10px;
     width: 340px;
     h5{
         font-weight: normal;

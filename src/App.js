@@ -6,6 +6,7 @@ import SignInPage from './components/SignIn';
 import Details from './components/Details';
 import Plan from './components/Plan';
 import PlanType from './components/PlanType';
+import Adress from './components/Adress';
 
 export default function App() {
   return (
@@ -31,6 +32,10 @@ export default function App() {
 
         <Route path="/sign-plan" exact>
           <Plan />
+        </Route>
+
+        <Route path="/adress" exact>
+          <Adress />
         </Route>
 
         <Route path="/planType" exact>

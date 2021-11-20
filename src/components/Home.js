@@ -18,7 +18,7 @@ export default function Home() {
                 </button>
                 <h3>
                     <Link to={`/sign-in`} style={{textDecoration: 'none', color: "#ffffff"}}>
-                        Já sou logado
+                        Já sou grato
                     </Link>
                 </h3>
             </Center>            
