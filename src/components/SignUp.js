@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import postSignUp from '../service';
+import { postSignUp } from '../service';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');

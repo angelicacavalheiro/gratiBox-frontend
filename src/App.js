@@ -1,5 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useState } from 'react';
 import './reset.css';
+import UserContext from './contexts/UserContext';
 import Home from './components/Home';
 import SignUpPage from './components/SignUp';
 import SignInPage from './components/SignIn';
@@ -9,7 +11,11 @@ import PlanType from './components/PlanType';
 import Adress from './components/Adress';
 
 export default function App() {
+  const storedUser = JSON.parse(localStorage.getItem('storedUser'));
+  const [user, setUser] = useState(storedUser);
+
   return (
+    <UserContext.Provider value={ { user, setUser } }>
     <BrowserRouter>
       <Switch>
 
@@ -43,5 +49,6 @@ export default function App() {
 
       </Switch>
     </BrowserRouter>
+    </UserContext.Provider>
   );
 }
