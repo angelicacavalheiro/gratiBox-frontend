@@ -1,5 +1,5 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import "./reset.css";
+import './reset.css';
 import Home from './components/Home';
 import SignUpPage from './components/SignUp';
 import SignInPage from './components/SignIn';
@@ -10,7 +10,6 @@ import Adress from './components/Adress';
 
 export default function App() {
   return (
-
     <BrowserRouter>
       <Switch>
 
