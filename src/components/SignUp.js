@@ -1,20 +1,102 @@
 /* eslint-disable no-trailing-spaces */
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
+import { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import postSignUp from '../service';
 
 export default function SignUp() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [name, setName] = useState('');
+  const history = useHistory();
+
+  function userSignUp(event) {
+    event.preventDefault();
+
+    if (password !== passwordConfirm) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'As senhas precisam ser iguais',
+      });
+      return;
+    }
+    const body = {
+      email,
+      password,
+      name,
+    };
+
+    postSignUp(body)
+      .then(() => {
+        history.push('/sign-in');
+      })
+      .catch((err) => {
+        if (err.response.status === 403) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'O e-mail inserido já está cadastrado.',
+
+          });
+        } else if (err.response.status === 500) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Erro de servidor',
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data,
+          });
+        }
+      });
+  }
+
   return (
-    <Container>
+    <Container onSubmit={userSignUp}>
       <h1>Bem vindo ao GratiBox</h1>
-      <input placeholder="Nome"></input>
-      <input placeholder="Email"></input>
-      <input placeholder="Senha"></input>
-      <input placeholder="Confirmar senha"></input>
-      <button>Cadastrar</button>
+      <input
+        placeholder='Nome'
+        type='username'
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <input
+        placeholder='Email'
+        type='email'
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input
+        placeholder='Senha'
+        type='password'
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <input
+        placeholder='Confirmar senha'
+        type='password'
+        value={passwordConfirm}
+        onChange={(e) => setPasswordConfirm(e.target.value)}
+        required
+      />
+      <button>
+        <Link to={'/sign-in'} style={{ textDecoration: 'none' }}/>
+        Cadastrar
+      </button>
     </Container>
   );
 }
 
-const Container = styled.p`
+const Container = styled.form`
   color: #FFFFFF;
   font-family: Roboto;
   display: flex;
