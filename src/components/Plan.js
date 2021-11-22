@@ -1,12 +1,12 @@
 /* eslint-disable no-trailing-spaces */
 import styled from 'styled-components';
-import { useState, useContext } from 'react';
-import { MdKeyboardArrowDown } from 'react-icons/md';
+import { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { MdKeyboardArrowDown } from 'react-icons/md';
 import Swal from 'sweetalert2';
-import UserContext from '../contexts/UserContext';
 import imgAdress from '../assets/image03.jpg';
 import ShowAvailableDeliveryDates from './ShowAvailableDeliveryDates';
+import UserContext from '../contexts/UserContext';
 import { postPlan } from '../service';
 
 export default function Details() {
@@ -60,27 +60,36 @@ export default function Details() {
       setProduct('organicos');
     } else if (!cha && incenso && !organicos) {
       setProduct('incenso');
-    } else {
+    } else if (cha && !incenso && !organicos) {
       setProduct('cha');
+    } else {
+      setProduct('');
     }
   }
 
   function postSignPlan() {
-    defineProductPackage();
-    console.log(body);
+    if (!product) {
+      return ('continue');
+    }
     postPlan(body)
       .then(() => {
         history.push('/adress');
       })
       .catch((error) => {
         console.log(error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Erro de servidor',
-        });
+        return (
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Erro de servidor',
+          }));
       });
+    return ('continue');
   }
+
+  useEffect(() => {
+    postSignPlan();
+  }, [product]);
 
   return (
     <Container>
@@ -118,24 +127,24 @@ export default function Details() {
             <div>
               <p>
                 <input type="checkbox" id="Chás"
-                  onClick={() => ((cha === 'cha') ? setCha('') : setCha('cha'))}
+                  onClick={() => ((cha === '') ? setCha('cha') : setCha(''))}
                 />
                 <h4> Chás </h4>
                 <input type="checkbox" id="Incesos"
-                  onClick={() => ((incenso === 'incenso') ? setIncenso('') : setIncenso('incenso'))}
+                  onClick={() => ((incenso === '') ? setIncenso('incenso') : setIncenso(''))}
                 />
                 <h4> Incesos </h4>
               </p>
               <p>
                 <input type="checkbox" id="Produtos orgânicos"
-                  onClick={() => ((organicos === 'organicos') ? setOrganicos('') : setOrganicos('organicos'))}
+                  onClick={() => ((organicos === '') ? setOrganicos('organicos') : setOrganicos(''))}
                 />
                 <h4> Produtos orgânicos </h4>
               </p>
             </div>
         </Products>
       </Options>
-      <button onClick={() => postSignPlan()}> Próximo </button>
+      <button onClick={() => defineProductPackage()}> Próximo </button>
     </Container>
   );
 }
