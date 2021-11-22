@@ -1,11 +1,15 @@
 /* eslint-disable no-trailing-spaces */
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import UserContext from '../contexts/UserContext';
 import imgAdress from '../assets/image02.jpg';
 
 export default function Details() {
+  const { user } = useContext(UserContext);
   return (
     <Container>
-      <h1>Bom te ver por aqui, @User.</h1>
+      <h1>Bom te ver por aqui, {user.name}.</h1>
       <h2>Você ainda não assinou um plano, que tal começar agora?</h2>
       <ShowPlan>
         <img src={imgAdress} alt="pessoa meditando"/>
@@ -13,14 +17,22 @@ export default function Details() {
           <h3>Você recebe um box por semana.
           Ideal para quem quer exercer a sua gratidão todos os dias
           </h3>
-          <button>Assinar</button>
+          <Link to={'/sign-plan'} style={{ textDecoration: 'none', color: '#ffffff' }}>
+            <button>
+              Assinar
+            </button>
+          </Link>
         </PlanType>
       </ShowPlan>
       <ShowPlan>
         <img src={imgAdress} alt="pessoa meditando"/>
         <PlanType>
           <h3>Você recebe um box por mês. <br/>Ideal para quem está começando agora</h3>
-          <button>Assinar</button>
+            <Link to={'/sign-plan'} style={{ textDecoration: 'none', color: '#ffffff' }}>
+              <button>
+                Assinar
+              </button>
+            </Link>
         </PlanType>
       </ShowPlan>
     </Container>
@@ -36,8 +48,8 @@ const Container = styled.div`
   align-items: center;
 
   h1{
-    width: 341px;
-    height: 29px;
+    width: 345px;
+    height: 60px;
     font-weight: bold;
     font-size: 26px;
     line-height: 30px;

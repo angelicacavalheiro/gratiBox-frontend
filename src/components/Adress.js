@@ -1,23 +1,114 @@
 /* eslint-disable no-trailing-spaces */
 import styled from 'styled-components';
-import { MdKeyboardArrowDown } from 'react-icons/md';
+import { useContext, useState } from 'react';
+import Swal from 'sweetalert2';
+import { useHistory } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
 import imgAdress from '../assets/image03.jpg';
+import { postAdress } from '../service';
 
 export default function Adress() {
+  const { user } = useContext(UserContext);
+
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [cep, setCep] = useState('');
+  const [state, setState] = useState('');
+  const { token } = user;
+  const history = useHistory();
+
+  const body = {
+    cep,
+    state,
+    city,
+    street,
+    number,
+    token,
+  };
+
+  function postAdresses(e) {
+    e.preventDefault();
+    postAdress(body)
+      .then(() => {
+        history.push('/details');
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Erro de servidor',
+        });
+      });
+  }
+
   return (
-    <Container>
-      <h1>Bom te ver por aqui, @User.</h1>
+    <Container onSubmit={(e) => postAdresses(e)}>
+      <h1>Bom te ver por aqui, {user.name}.</h1>
       <h2>"Agradecer é arte de atrair coisas boas"</h2>
       <AdressInputs>
         <img src={imgAdress} alt="pessoa meditando"/>
-        <input type="text" placeholder="Nome completo"/>
-        <input type="text" placeholder="Endereço de entrega"/>
-        <input type="text" placeholder="CEP"/>
-        <input type="text" placeholder="Cidade"/>
-        <button>
-          <h3>Estado</h3>
-          <MdKeyboardArrowDownStyled/>
-        </button>
+        <input
+          type="text"
+          minlength="1"
+          maxlength="30"
+          placeholder="Nome completo"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+
+        <input
+          type="text"
+          minlength="1"
+          maxlength="30"
+          placeholder="Endereço de entrega"
+          value={street}
+          onChange={(e) => setStreet(e.target.value)}
+          required
+        />
+
+        <input
+          type="text"
+          minlength="1"
+          maxlength="4"
+          placeholder="Numero da residência"
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+          required
+        />
+
+        <input
+          type="text"
+          minlength="5"
+          maxlength="11"
+          placeholder="CEP"
+          value={cep}
+          onChange={(e) => setCep(e.target.value)}
+          required
+        />
+
+        <input
+        type="text"
+        minlength="1"
+        maxlength="30"
+        placeholder="Cidade"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        required
+        />
+
+        <input
+        type="text"
+        minlength="1"
+        maxlength="2"
+        placeholder="Estado"
+        value={state}
+        onChange={(e) => setState(e.target.value)}
+        required
+        />
+
       </AdressInputs>
       <Button>Finalizar</Button>
     </Container>
@@ -65,32 +156,12 @@ const AdressInputs = styled.div`
         color: #4D65A8;
     }
   }
-  button{
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 10px 0px 10px;
-    width: 290px;
-    height: 44px;
-    background-color: #E0D1ED;
-    color: #4D65A8;
-    border-radius: 5px;
-    font-family: Roboto;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 21px;
-  }
   h3{
     padding-top: 10px;
   }
 `;
 
-const MdKeyboardArrowDownStyled = styled(MdKeyboardArrowDown)`
-  color: #4D65A8;
-  font-size: 35px;
-  height: 44px;
-`;
-
-const Container = styled.div`
+const Container = styled.form`
   font-family: Roboto;
   color: #FFFFFF;
   display: flex;
@@ -100,7 +171,7 @@ const Container = styled.div`
 
   h1{
     width: 341px;
-    height: 29px;
+    height: 45px;
     font-weight: bold;
     font-size: 26px;
     line-height: 30px;
