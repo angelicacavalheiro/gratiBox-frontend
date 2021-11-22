@@ -34,14 +34,12 @@ export default function Adress() {
       .then(() => {
         history.push('/details');
       })
-      .catch((error) => {
-        console.log(error);
-        return (
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Erro de servidor',
-          }));
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Erro de servidor',
+        });
       });
   }
 

@@ -76,12 +76,11 @@ export default function Details() {
         history.push('/adress');
       })
       .catch(() => {
-        return (
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Erro de servidor',
-          }));
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Erro de servidor',
+        });
       });
     return ('continue');
   }
