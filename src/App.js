@@ -9,6 +9,7 @@ import Details from './components/Details';
 import Plan from './components/Plan';
 import PlanType from './components/PlanType';
 import Adress from './components/Adress';
+import Logout from './components/Logout';
 
 export default function App() {
   const storedUser = JSON.parse(localStorage.getItem('storedUser'));
@@ -32,6 +33,7 @@ export default function App() {
         </Route>
 
         <Route path="/details" exact>
+          <Logout />
           <Details />
         </Route>
 

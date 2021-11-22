@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const URL = 'http://localhost:4001';
-// https://mirabackend.herokuapp.com
+// https://gratibox-driven.herokuapp.com
 
 const createHeaders = (token) => ({ headers: { Authorization: `Bearer ${token}` } });
 
@@ -30,10 +30,16 @@ function postAdress(body) {
   return promise;
 }
 
+function postLogout(token) {
+  const promise = axios.post(`${URL}/logout`, {}, createHeaders(token));
+  return promise;
+}
+
 export {
   postSignUp,
   postLogin,
   getUserPlan,
   postPlan,
   postAdress,
+  postLogout,
 };
