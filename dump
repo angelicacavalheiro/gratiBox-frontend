@@ -1,0 +1,159 @@
+CREATE TABLE "user" (
+	"id" serial NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL UNIQUE,
+	"password" TEXT NOT NULL,
+	CONSTRAINT "user_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "session" (
+	"id" serial NOT NULL,
+	"token" TEXT NOT NULL,
+	"user_id" integer NOT NULL,
+	CONSTRAINT "session_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "adress" (
+	"id" serial NOT NULL,
+	"street" varchar(255) NOT NULL,
+	"number" varchar(10) NOT NULL,
+	"state_id" integer NOT NULL,
+	"city_id" integer NOT NULL,
+	"cep_id" integer NOT NULL,
+	"user_id" integer NOT NULL,
+	CONSTRAINT "adress_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "cep" (
+	"id" serial NOT NULL,
+	"code" varchar(255) NOT NULL,
+	CONSTRAINT "cep_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "city" (
+	"id" serial NOT NULL,
+	"city_name" varchar(255) NOT NULL,
+	CONSTRAINT "city_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "state" (
+	"id" serial NOT NULL,
+	"state_name" varchar(255) NOT NULL,
+	CONSTRAINT "state_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "plan_type" (
+	"id" serial NOT NULL,
+	"type" varchar(255) NOT NULL,
+	CONSTRAINT "plan_type_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "delivery" (
+	"id" serial NOT NULL,
+	"day" varchar(255) NOT NULL,
+	CONSTRAINT "delivery_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "products" (
+	"id" serial NOT NULL,
+	"product" varchar(255) NOT NULL,
+	CONSTRAINT "products_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "plan" (
+	"id" serial NOT NULL,
+	"type_plan_id" integer NOT NULL,
+	"delivery_id" integer NOT NULL,
+	"products_id" integer NOT NULL,
+	"user_id" integer NOT NULL,
+	CONSTRAINT "plan_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+
+ALTER TABLE "session" ADD CONSTRAINT "session_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+
+ALTER TABLE "adress" ADD CONSTRAINT "adress_fk0" FOREIGN KEY ("state_id") REFERENCES "state"("id");
+ALTER TABLE "adress" ADD CONSTRAINT "adress_fk1" FOREIGN KEY ("city_id") REFERENCES "city"("id");
+ALTER TABLE "adress" ADD CONSTRAINT "adress_fk2" FOREIGN KEY ("cep_id") REFERENCES "cep"("id");
+ALTER TABLE "adress" ADD CONSTRAINT "adress_fk3" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+
+
+
+
+
+
+
+ALTER TABLE "plan" ADD CONSTRAINT "plan_fk0" FOREIGN KEY ("type_plan_id") REFERENCES "plan_type"("id");
+ALTER TABLE "plan" ADD CONSTRAINT "plan_fk1" FOREIGN KEY ("delivery_id") REFERENCES "delivery"("id");
+ALTER TABLE "plan" ADD CONSTRAINT "plan_fk2" FOREIGN KEY ("products_id") REFERENCES "products"("id");
+ALTER TABLE "plan" ADD CONSTRAINT "plan_fk3" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+
+ALTER TABLE "plan" ADD date DATE;
+
+INSERT INTO plan_type (type) VALUES ('monthly');
+INSERT INTO plan_type (type) VALUES ('weekly');
+
+
+INSERT INTO delivery (day) VALUES ('segunda');
+INSERT INTO delivery (day) VALUES ('quarta');
+INSERT INTO delivery (day) VALUES ('sexta');
+INSERT INTO delivery (day) VALUES ('01');
+INSERT INTO delivery (day) VALUES ('10');
+INSERT INTO delivery (day) VALUES ('20');
+
+INSERT INTO products (product) VALUES ('cha');
+INSERT INTO products (product) VALUES ('incenso');
+INSERT INTO products (product) VALUES ('organicos');
+INSERT INTO products (product) VALUES ('cha, incenso');
+INSERT INTO products (product) VALUES ('cha, organicos');
+INSERT INTO products (product) VALUES ('incenso, organicos');
+INSERT INTO products (product) VALUES ('cha, incenso, organicos');
+
+
+
+
+
+
+
+
+

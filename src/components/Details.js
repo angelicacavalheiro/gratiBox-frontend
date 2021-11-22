@@ -5,7 +5,6 @@ import UserContext from '../contexts/UserContext';
 import imgAdress from '../assets/image03.jpg';
 import { getUserPlan } from '../service';
 import DetailsType from './DetailsType';
-import DetailsDate from './DetailsDate';
 
 export default function Details() {
   const { user } = useContext(UserContext);
@@ -14,9 +13,7 @@ export default function Details() {
   useEffect(() => {
     getUserPlan(user.token)
       .then((userPlan) => {
-        console.log(userPlan.data[0].day);
         setUserDetails(userPlan.data[0]);
-        console.log(userDetails);
       });
   }, [user]);
 
@@ -34,7 +31,6 @@ export default function Details() {
                     <h3>Data da assinatura: </h3>
                     <h4> {userDetails.date} </h4>
                   </SignatureDate>
-                  <DetailsDate userDetails={userDetails}/>
                   <PlanProducts>
                     <><h3>produtos:</h3> <h5>{userDetails.product}</h5></>
                   </PlanProducts>
