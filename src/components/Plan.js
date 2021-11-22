@@ -75,8 +75,7 @@ export default function Details() {
       .then(() => {
         history.push('/adress');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         return (
           Swal.fire({
             icon: 'error',

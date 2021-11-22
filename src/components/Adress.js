@@ -30,7 +30,6 @@ export default function Adress() {
 
   function postAdresses(e) {
     e.preventDefault();
-    console.log(body);
     postAdress(body)
       .then(() => {
         history.push('/details');
