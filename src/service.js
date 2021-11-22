@@ -25,9 +25,15 @@ function postPlan(body) {
   return promise;
 }
 
+function postAdress(body) {
+  const promise = axios.post(`${URL}/adress`, body);
+  return promise;
+}
+
 export {
   postSignUp,
   postLogin,
   getUserPlan,
   postPlan,
+  postAdress,
 };
