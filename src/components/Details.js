@@ -1,37 +1,42 @@
 /* eslint-disable no-trailing-spaces */
 import styled from 'styled-components';
+import { useContext, useEffect, useState } from 'react';
+import UserContext from '../contexts/UserContext';
 import imgAdress from '../assets/image03.jpg';
+import { getUserPlan } from '../service';
+import DetailsType from './DetailsType';
 
 export default function Details() {
+  const { user } = useContext(UserContext);
+  const [userDetails, setUserDetails] = useState('');
+
+  useEffect(() => {
+    getUserPlan(user.token)
+      .then((userPlan) => {
+        setUserDetails(userPlan.data[0]);
+      });
+  }, [user]);
+
   return (
     <Container>
-      <h1>Bom te ver por aqui, @User.</h1>
+      <h1>Bom te ver por aqui, {user.name}.</h1>
       <h2>"Agradecer é arte de atrair coisas boas"</h2>
       <ShowDetails>
         <img src={imgAdress} alt="pessoa meditando"/>
-        <PlanType>
-          <h3>Plano: </h3>
-          <h4>@tipo_de_plano</h4>
-        </PlanType>
-
-        <SignatureDate>
-          <h3>Data da assinatura: </h3>
-          <h4> dd/mm/aa</h4>
-        </SignatureDate>
-
-        <NextDeliveries>
-          <h3>Próximas entregas: </h3>
-          <h4>dd/mm/aaaa</h4>
-          <h4>dd/mm/aaaa</h4>
-          <h4>dd/mm/aaaa</h4>
-        </NextDeliveries>
-
-        <PlanProducts>
-          <h5>Chás</h5>
-          <h5>Produtos Orgânicos</h5>
-          <h5>Incensos</h5>
-        </PlanProducts>
-
+          {
+            userDetails !== ''
+              ? <>
+                  <DetailsType userDetails={userDetails}/>
+                  <SignatureDate>
+                    <h3>Data da assinatura: </h3>
+                    <h4> {userDetails.date} </h4>
+                  </SignatureDate>
+                  <PlanProducts>
+                    <><h3>produtos:</h3> <h5>{userDetails.product}</h5></>
+                  </PlanProducts>
+                </>
+              : ''
+          }
       </ShowDetails>
       <button>Avaliar entregas</button>
     </Container>
@@ -48,11 +53,11 @@ const Container = styled.div`
 
   h1{
     width: 341px;
-    height: 29px;
+    height: 45px;
     font-weight: bold;
     font-size: 26px;
     line-height: 30px;
-    margin: 101px auto 22px auto;
+    margin: 50px auto 22px auto;
   }
   h2{
     width: 333px;
@@ -99,18 +104,6 @@ const ShowDetails = styled.div`
     border-radius: 25px;
   }
 `;
-const PlanType = styled.div`
-  display: flex;
-  margin-bottom: 10px;
-  justify-content: space-around;
-  width: 270px;
-  h3{
-    color: #4D65A8;
-  }
-  h4{
-    color: #E63C80;
-  }
-`;
 
 const SignatureDate = styled.div`
   display: flex;
@@ -125,28 +118,17 @@ const SignatureDate = styled.div`
   }
 `;
 
-const NextDeliveries = styled.div`
-  display: flex;
-  flex-direction: column;
-  h3{
-      color: #4D65A8;
-  }
-  h4{
-      width: 270px;
-      text-align: end;
-      color: #E63C80;
-      margin-bottom: 10px;
-  }
-`;
-
 const PlanProducts = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 340px;
+  h3{
+    color: #4D65A8;
+  }
   h5{
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 21px;
-      color: #E63C80;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #E63C80;
   }
 `;
